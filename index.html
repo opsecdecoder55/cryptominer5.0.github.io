@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMiner Simulator | Virtual Mining Game</title>
+    <meta name="description" content="Experience the thrill of cryptocurrency mining in this stunning simulator game. Mine Bitcoin, Ethereum, Solana and more - for entertainment only!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="particles" id="particles"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⛏️</span>
+                <span class="logo-text">CryptoMiner<span class="logo-sim">SIM</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#coins" class="nav-link">Coins</a>
+                <a href="#mining" class="nav-link">Mining</a>
+                <a href="#stats" class="nav-link">Stats</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-ghost" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#coins" class="mobile-link">Coins</a>
+        <a href="#mining" class="mobile-link">Mining</a>
+        <a href="#stats" class="mobile-link">Stats</a>
+        <div class="mobile-actions">
+            <button class="btn btn-ghost" id="mobileLoginBtn">Login</button>
+            <button class="btn btn-primary" id="mobileRegisterBtn">Register</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🎮 SIMULATOR GAME</div>
+            <h1 class="hero-title">
+                <span class="title-line">Virtual</span>
+                <span class="title-line gradient-text">Crypto Mining</span>
+                <span class="title-line">Experience</span>
+            </h1>
+            <p class="hero-subtitle">Experience the thrill of cryptocurrency mining in this stunning simulator. Select your coin, start mining, and watch your virtual earnings grow!</p>
+            <div class="hero-actions">
+                <a href="#coins" class="btn btn-primary btn-lg">
+                    <span>Start Mining</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#stats" class="btn btn-glass btn-lg">View Stats</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-value" id="totalMinersCount">0</span>
+                    <span class="stat-label">Virtual Miners</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-value" id="totalMinedDisplay">$0.00</span>
+                    <span class="stat-label">Total Mined</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-value">8</span>
+                    <span class="stat-label">Coins Available</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-coins">
+                <div class="floating-coin coin-btc">₿</div>
+                <div class="floating-coin coin-eth">Ξ</div>
+                <div class="floating-coin coin-sol">◎</div>
+                <div class="floating-coin coin-doge">Ð</div>
+            </div>
+            <div class="miner-graphic">
+                <div class="miner-core"></div>
+                <div class="miner-ring ring-1"></div>
+                <div class="miner-ring ring-2"></div>
+                <div class="miner-ring ring-3"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Coin Selection Section -->
+    <section class="section" id="coins">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Select Your <span class="gradient-text">Coin</span></h2>
+                <p class="section-subtitle">Choose from 8 popular cryptocurrencies to start your virtual mining journey</p>
+            </div>
+            <div class="coins-grid" id="coinsGrid">
+                <!-- Coins will be inserted by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Mining Dashboard Section -->
+    <section class="section section-dark" id="mining">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mining <span class="gradient-text">Dashboard</span></h2>
+                <p class="section-subtitle">Watch your virtual mining operation in action</p>
+            </div>
+            <div class="mining-dashboard">
+                <div class="mining-main">
+                    <div class="selected-coin-display" id="selectedCoinDisplay">
+                        <div class="selected-coin-icon" id="selectedCoinIcon">₿</div>
+                        <div class="selected-coin-info">
+                            <h3 id="selectedCoinName">Bitcoin</h3>
+                            <p id="selectedCoinSymbol">BTC</p>
+                        </div>
+                    </div>
+                    <div class="mining-visual" id="miningVisual">
+                        <div class="hash-display" id="hashDisplay">
+                            <span class="hash-label">Current Hash:</span>
+                            <span class="hash-value" id="currentHash">0x0000000000</span>
+                        </div>
+                        <div class="mining-animation" id="miningAnimation">
+                            <div class="pickaxe">⛏️</div>
+                            <div class="sparks">
+                                <span class="spark"></span>
+                                <span class="spark"></span>
+                                <span class="spark"></span>
+                            </div>
+                        </div>
+                        <div class="mining-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="miningProgress"></div>
+                            </div>
+                            <span class="progress-text" id="progressText">Ready to mine</span>
+                        </div>
+                    </div>
+                    <div class="mining-controls">
+                        <button class="btn btn-mine btn-lg" id="startMiningBtn">
+                            <span class="btn-icon">▶</span>
+                            <span class="btn-text">Start Mining</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mining-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="currentBalance">$0.00</span>
+                            <span class="stat-label">Current Balance</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="hashRate">0 H/s</span>
+                            <span class="stat-label">Hash Rate</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="blocksFound">0</span>
+                            <span class="stat-label">Blocks Found</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="miningTime">00:00:00</span>
+                            <span class="stat-label">Mining Time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Upgrades Section -->
+    <section class="section" id="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your <span class="gradient-text">Stats</span></h2>
+                <p class="section-subtitle">Track your progress and upgrade your virtual mining power</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stats-panel">
+                    <h3 class="panel-title">📊 Lifetime Statistics</h3>
+                    <div class="stats-list">
+                        <div class="stats-item">
+                            <span class="stats-label">Total Earned</span>
+                            <span class="stats-value" id="lifetimeEarned">$0.00</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Total Blocks</span>
+                            <span class="stats-value" id="lifetimeBlocks">0</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Total Time Mined</span>
+                            <span class="stats-value" id="lifetimeTime">0h 0m</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Mining Level</span>
+                            <span class="stats-value" id="miningLevel">1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="upgrades-panel">
+                    <h3 class="panel-title">⬆️ Upgrades</h3>
+                    <div class="upgrades-list" id="upgradesList">
+                        <!-- Upgrades will be inserted by JavaScript -->
+                    </div>
+                </div>
+                <div class="achievements-panel">
+                    <h3 class="panel-title">🏆 Achievements</h3>
+                    <div class="achievements-grid" id="achievementsList">
+                        <!-- Achievements will be inserted by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">⛏️</span>
+                    <span class="logo-text">CryptoMiner<span class="logo-sim">SIM</span></span>
+                </div>
+                <div class="footer-disclaimer">
+                    <p>⚠️ <strong>DISCLAIMER:</strong> This is a <strong>SIMULATOR GAME</strong> for entertainment purposes only. No real cryptocurrency is mined, earned, or transferred. All values shown are virtual and have no real-world monetary value.</p>
+                </div>
+                <div class="footer-links">
+                    <span>© 2026 CryptoMiner Simulator</span>
+                    <span>•</span>
+                    <span>Game Version 1.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="closeLoginModal">&times;</button>
+            <div class="modal-header">
+                <h2>Welcome Back!</h2>
+                <p>Login to continue your mining journey</p>
+            </div>
+            <form class="modal-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+            </form>
+            <div class="modal-footer">
+                <p>Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="closeRegisterModal">&times;</button>
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <p>Start your virtual mining adventure</p>
+            </div>
+            <form class="modal-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Username</label>
+                    <input type="text" id="registerName" placeholder="CryptoMiner123" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+            </form>
+            <div class="modal-footer">
+                <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon"></span>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
